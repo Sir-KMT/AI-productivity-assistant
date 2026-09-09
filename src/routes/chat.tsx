@@ -164,11 +164,12 @@ function ChatPage() {
                   className={
                     m.role === "user"
                       ? "max-w-[80%] whitespace-pre-wrap rounded-xl bg-primary px-3.5 py-2.5 text-sm leading-relaxed text-primary-foreground"
-                      : "max-w-[85%] whitespace-pre-wrap text-sm leading-relaxed text-foreground"
+                      : "max-w-[85%] text-sm leading-relaxed text-foreground"
                   }
                 >
-                  {m.content}
+                  {m.role === "user" ? m.content : <MarkdownLite text={m.content} />}
                 </div>
+
                 {m.role === "user" && (
                   <div className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-md bg-secondary">
                     <User className="size-4" />
