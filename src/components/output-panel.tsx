@@ -15,7 +15,7 @@ type Props = {
   loading: boolean;
   error: string | null;
   demo: boolean;
-  notice?: string;
+  notice?: string | undefined;
   onRegenerate: () => void;
   onClear: () => void;
   canRegenerate: boolean;

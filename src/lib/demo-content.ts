@@ -7,9 +7,9 @@ const wrap = (title: string, body: string) => `${title}\n\n${body.trim()}\n`;
 export function demoResponse(tool: ToolId, input: ToolInput): string {
   switch (tool) {
     case "email": {
-      const to = input.recipient || "the team";
-      const topic = input.topic || "project update";
-      const tone = input.tone || "professional";
+      const to = input["recipient"] || "the team";
+      const topic = input["topic"] || "project update";
+      const tone = input["tone"] || "professional";
       return wrap(
         `Subject: ${topic.charAt(0).toUpperCase() + topic.slice(1)} — next steps`,
         `Hi ${to},
@@ -23,9 +23,9 @@ I hope your week is going well. I wanted to share a short update on ${topic} and
 If a call would be easier than email, I'm happy to find a slot that works for you.
 
 Best regards,
-${input.sender || "Alex Morgan"}
+${input["sender"] || "Alex Morgan"}
 
-(Demo sample — ${tone} tone, ${input.length || "medium"} length.)`,
+(Demo sample — ${tone} tone, ${input["length"] || "medium"} length.)`,
       );
     }
     case "meeting":
@@ -52,7 +52,7 @@ Risks & Follow-ups
       );
     case "tasks":
       return wrap(
-        `Plan: ${input.goal || "Launch the new workspace"}`,
+        `Plan: ${input["goal"] || "Launch the new workspace"}`,
         `Phase 1 — Discovery (Days 1-3)
 1. [High] Define success metrics and scope — 2h
 2. [High] Interview three stakeholders — 3h
@@ -75,7 +75,7 @@ Suggested order: 1 → 2 → 4 → 5 → 6 → 8 → 9 → 3 → 7 → 10
       );
     case "research":
       return wrap(
-        `Research Brief: ${input.question || "Market overview"}`,
+        `Research Brief: ${input["question"] || "Market overview"}`,
         `Summary
 The area is maturing quickly, with adoption concentrated among mid-sized teams that already run structured workflows. Cost and trust remain the two decisive factors in purchase decisions.
 
@@ -123,22 +123,22 @@ export function buildPrompt(tool: ToolId, input: ToolInput): string {
   switch (tool) {
     case "email":
       return `Write an email.
-Recipient: ${input.recipient || "the team"}
-Sender name: ${input.sender || "(omit signature name)"}
-Topic / key points: ${input.topic}
-Tone: ${input.tone || "professional"}
-Length: ${input.length || "medium"}`;
+Recipient: ${input["recipient"] || "the team"}
+Sender name: ${input["sender"] || "(omit signature name)"}
+Topic / key points: ${input["topic"]}
+Tone: ${input["tone"] || "professional"}
+Length: ${input["length"] || "medium"}`;
     case "meeting":
-      return `Summarise these meeting notes.\nMeeting: ${input.title || "(untitled)"}\n\nNotes:\n${input.notes}`;
+      return `Summarise these meeting notes.\nMeeting: ${input["title"] || "(untitled)"}\n\nNotes:\n${input["notes"]}`;
     case "tasks":
-      return `Goal: ${input.goal}
-Deadline / timeframe: ${input.deadline || "not specified"}
-Context and constraints: ${input.context || "none given"}`;
+      return `Goal: ${input["goal"]}
+Deadline / timeframe: ${input["deadline"] || "not specified"}
+Context and constraints: ${input["context"] || "none given"}`;
     case "research":
-      return `Research question: ${input.question}
-Depth: ${input.depth || "standard"}
-Audience: ${input.audience || "internal team"}`;
+      return `Research question: ${input["question"]}
+Depth: ${input["depth"] || "standard"}
+Audience: ${input["audience"] || "internal team"}`;
     case "chat":
-      return input.message ?? "";
+      return input["message"] ?? "";
   }
 }
