@@ -4,6 +4,7 @@ import { Bot, Download, MessagesSquare, SendHorizontal, Trash2, User } from "luc
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
+import { MarkdownLite } from "@/components/markdown-lite";
 import { PageHeader } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
